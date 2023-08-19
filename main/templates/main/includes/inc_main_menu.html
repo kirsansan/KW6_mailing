@@ -18,40 +18,40 @@
                     Main menu
                 </a>
             </li>
+{#            <li>#}
+{#                <a href="{% url 'main:category' %}" class="nav-link text-white">#}
+{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
+{#                        <use xlink:href="#speedometer2"></use>#}
+{#                    </svg>#}
+{#                    Category#}
+{#                </a>#}
+{#            </li>#}
+{#            <li>#}
+{#                <a href="{% url 'main:catalog' 1 %}" class="nav-link text-white">#}
+{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
+{#                        <use xlink:href="#table"></use>#}
+{#                    </svg>#}
+{#                    Catalog#}
+{#                </a>#}
+{#            </li>#}
+{#            <li>#}
+{#                <a href="{% url 'main:contacts' %}" class="nav-link text-white">#}
+{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
+{#                        <use xlink:href="#grid"></use>#}
+{#                    </svg>#}
+{#                    Contacts#}
+{#                </a>#}
+{#            </li>#}
+{#            <li>#}
+{#                <a href="{% url 'main:add_new_product' %}" class="nav-link text-white">#}
+{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
+{#                        <use xlink:href="#grid"></use>#}
+{#                    </svg>#}
+{#                    Adding new product#}
+{#                </a>#}
+{#            </li>#}
             <li>
-                <a href="{% url 'main:index' %}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#speedometer2"></use>
-                    </svg>
-                    Category
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'main:index' %}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#table"></use>
-                    </svg>
-                    Catalog
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'main:index' %}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#grid"></use>
-                    </svg>
-                    Contacts
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'main:index' %}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#grid"></use>
-                    </svg>
-                    Adding new product
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                <a href="{% url 'blog:blogs_view' %}" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#grid"></use>
                     </svg>
@@ -61,14 +61,33 @@
         </ul>
         <hr>
         <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-               data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/kirsansan.png" alt="" width="94" height="94" class="rounded-circle me-2">
-                <strong> User name </strong>
-            </a>
+            {% if request.user.is_authenticated %}
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="" width="94" height="94" class="rounded-circle me-2">
+                    {% else %}
+                        <img src="https://github.com/kirsansan.png" alt="" width="94" height="94" class="rounded-circle me-2">
+                    {% endif %}
+                    <strong>hello {{ user.email }} ({{ user.first_name }}) </strong>
+                </a>
+            {% else %}
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/skyprotutors.png" alt="" width="94" height="94" class="rounded-circle me-2">
+                    <strong> No user </strong>
+                    </a>
+            {% endif %}
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Exit</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:register' %}">Registration</a></li>
+                {% endif %}
+
             </ul>
         </div>
     </div>

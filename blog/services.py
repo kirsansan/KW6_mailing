@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 
-from dz20_django_ORM import settings
+from KW6_mailing import settings
 from blog.models import Blog
 from config.config import THRESHOLD_VIEW_FOR_EMAIL
 

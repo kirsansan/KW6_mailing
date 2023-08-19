@@ -13,7 +13,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView
 
-from dz20_django_ORM import settings
+from KW6_mailing import settings
 from users.forms import UserRegisterForm, UserProfileForm, ForgotForm
 from users.models import User
 
