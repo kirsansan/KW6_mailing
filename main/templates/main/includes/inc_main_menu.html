@@ -1,6 +1,6 @@
 
 <div class="col-lg-2 bg-dark">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 960px">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 660px">
         <a href="{% url 'main:index' %}"
            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32">
@@ -15,25 +15,25 @@
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#home"></use>
                     </svg>
-                    Main menu
+                    Main page
                 </a>
             </li>
-{#            <li>#}
-{#                <a href="{% url 'main:category' %}" class="nav-link text-white">#}
-{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
-{#                        <use xlink:href="#speedometer2"></use>#}
-{#                    </svg>#}
-{#                    Category#}
-{#                </a>#}
-{#            </li>#}
-{#            <li>#}
-{#                <a href="{% url 'main:catalog' 1 %}" class="nav-link text-white">#}
-{#                    <svg class="bi pe-none me-2" width="16" height="16">#}
-{#                        <use xlink:href="#table"></use>#}
-{#                    </svg>#}
-{#                    Catalog#}
-{#                </a>#}
-{#            </li>#}
+            <li>
+                <a href="{% url 'main:mailing_list' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Mailing list
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:client_create' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#table"></use>
+                    </svg>
+                    New client
+                </a>
+            </li>
 {#            <li>#}
 {#                <a href="{% url 'main:contacts' %}" class="nav-link text-white">#}
 {#                    <svg class="bi pe-none me-2" width="16" height="16">#}

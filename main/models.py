@@ -29,7 +29,9 @@ class MailingMessage(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='creator')
 
     def __str__(self):
-        return f'{self.subject} at {self.created_time}'
+        # return f'{self.subject} created at {self.created_time.strftime("%Y-%m-%d %H:%M")}'
+        return f'{self.subject}'
+
 
     class Meta:
         verbose_name = 'message'

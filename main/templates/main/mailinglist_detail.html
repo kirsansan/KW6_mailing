@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    {% load my_tags %}
+    <div class="col-lg-10">
+        <div class="content">
+            <h1 class="card-title text-center mt-5">Details of one mailing</h1>
+{#            <h3 class="card-title text-center mt-1"> all what I know (c) {{ title }}</h3>#}
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+{#                    {% for object in object_list %}#}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center mb-4">
+                                <div class="card-header">
+                                    <h5> {{ object.message | title }} </h5>
+                                </div>
+{#                                <img class="card-img-top" src="{% mediapath object.image %}" alt="Goods image here">#}
+{#                                <img class="card-img-top" src="{{  object.image | mediapath }}" alt="Goods image here">#}
+                                <div class="card-body">
+                                    <p class="card-title">Status:{{ object.status }}</p>
+{#                                  <ul class="list-unstyled mt-3 mb-4 text-start m-3">#}
+                                    <p class="card-text">Start:{{ object.start}} </p>
+{#                                  </u>#}
+                                    <p class="card-text">Clients:{{ object.client_id }}</p>
+                                    <p class="card-text">Finish:{{ object.finish }}</p>
+{#                                    {% for ver in versions %}#}
+{#                                        <p class="card-text"> <b>version:</b>{{ ver.version_number }} </p>#}
+{#                                    {% endfor %}#}
+{#                                    <a href="#" class="btn btn-primary">Buy</a>#}
+                                    <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-danger">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+{#                    {% endfor %}#}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
