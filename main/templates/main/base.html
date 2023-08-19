@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        {% include 'main/includes/inc_main_menu.html' %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var currentLocation = window.location.href
+    var menuItems = document.querySelectorAll('a');
+    for (var i = 0; i < menuItems.length; i++) {
+        if (menuItems[i].href === currentLocation) {
+            menuItems[i].classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>

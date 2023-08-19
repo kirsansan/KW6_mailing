@@ -1,0 +1,36 @@
+# DOCs https://docs.djangoproject.com/
+
+# create new app
+python manage.py startapp <app_name>
+
+# start app
+python manage.py runserver
+
+# apply migrations
+python manage.py migrate
+
+# create migrations
+python manage.py makemigrations
+
+# remove migrations
+python manage.py migrate <app_name> <number of migration 0001 (not include)>
+
+# admin page creator
+python manage.py createsuperuser
+
+#shell opener
+python manage.py shell
+
+# dumpdata
+# — команда для сохранения данных из текущей БД:
+python manage.py dumpdata <app_name> > <app_name>_data.json
+python -Xutf8 manage.py dumpdata <app.model> --indent 2 -o table.json
+
+# loaddata
+# — команда загрузки сохраненных данных в текущую БД:
+python manage.py loaddata <app_name>_data.json
+
+SELECT pg_terminate_backend(pg_stat_activity.pid)
+FROM pg_stat_activity
+WHERE pg_stat_activity.datname = 'north' -- your BD name
+  AND pid <> pg_backend_pid();

@@ -1,0 +1,75 @@
+
+<div class="col-lg-2 bg-dark">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 960px">
+        <a href="{% url 'main:index' %}"
+           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32">
+                <use xlink:href="#home"></use>
+            </svg>
+            <span class="fs-4">Main menu</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{% url 'main:index' %}" class="nav-link text-white" aria-current="page">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#home"></use>
+                    </svg>
+                    Main menu
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"></use>
+                    </svg>
+                    Category
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#table"></use>
+                    </svg>
+                    Catalog
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#grid"></use>
+                    </svg>
+                    Contacts
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#grid"></use>
+                    </svg>
+                    Adding new product
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'main:index' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#grid"></use>
+                    </svg>
+                    Blogging
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/kirsansan.png" alt="" width="94" height="94" class="rounded-circle me-2">
+                <strong> User name </strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Exit</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{% extends 'orm/base.html' %}
+
+{%  block content %}
+        <div class="col-lg-10">
+            <div class="row justify-content-center mt-5">
+                <div class="col-6">
+                    <h2 class="text-center mb-4">Blogs</h2>
+                    <div class="row">
+                        {% for object in object_list %}
+                        <div class="col-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{object.title}}</h5>
+                                    <p class="card-text">This is blog {{object.pk}} id.</p>
+                                    <div class="d-flex justify-content-start">
+                                        <a href="{% url 'blog:blog_detail' object.slug %}" class="btn btn-primary" type="button">View</a>
+                                        <a href="{% url 'blog:blog_edit' object.slug %}" class="btn btn-secondary" type="button">Edit</a>
+                                        <a href="{% url 'blog:blog_delete' object.slug %}" class="btn btn-outline-dark" type="button">Delete</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <div class="card-footer">
+                            <a href="{% url 'blog:blog_create' %}" class="btn btn-primary">New Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{%  endblock %}

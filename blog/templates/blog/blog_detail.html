@@ -1,0 +1,36 @@
+{% extends 'orm/base.html' %}
+
+{% block content %}
+    {% load my_tags %}
+    <div class="col-lg-10">
+        <div class="content">
+            <h2 class="card-title text-center mt-5">Blog detail</h2>
+            <h3 class="card-title text-center mt-1">-----------</h3>
+            <div class="container mt-6">
+                <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card text-center mb-4">
+                                <div class="card-header">
+                                    <h1>{{ object.title | title }}</h1>
+                                </div>
+                                <img class="card-img-top" src="{{  object.image | mediapath }}" alt="Goods image here">
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                                <div class="card-body">
+                                    <p class="card-text">{{ object.text}} </p>
+                                    <p class="card-text"><b>was created  :</b>{{ object.date_created }}</p>
+                                    <p class="card-text"><b>was published:  </b>{{ object.is_published }} </p>
+                                    <p class="card-text"><b>slug is:        </b>{{ object.slug }}</p>
+                                    <a href="{% url 'blog:blog_delete' object.pk %}" class="btn btn-primary">Delete</a>
+                                </div>
+
+                        </div>
+                </div>
+                <div class="card-footer">
+                    views {{ object.counter_view }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

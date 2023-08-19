@@ -1,0 +1,35 @@
+{% extends 'orm/base.html' %}
+
+{%  block content %}
+
+<div class="col-lg-10">
+    <div class="content">
+        <h1 class="card-title text-center mt-5">Adding blog page</h1>
+        <h3 class="card-title text-center mt-1">You can create new article here</h3>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2 class="text-center">Write here</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="text-center">Attention</h2>
+                    <p>You can add new product here</p>
+                    <p>be careful, validator doesn't work yet</p>
+                    <p>in case of emergency write to</p>
+                    <p>Email: info@example.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endblock %}
