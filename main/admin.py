@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from main.models import Mailing
+from main.models import MailingList, MailingMessage, Client
 
 
 # для продуктов выведите в список id, название, цену и категорию.
-@admin.register(Mailing)
-class MailingAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'text', )
-    list_filter = ('title',)
-    search_fields = ('title', 'text',)
+@admin.register(MailingList)
+class MailingListAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'message', 'start', )
+    list_filter = ('start',)
+    search_fields = ('message', 'start',)
 
