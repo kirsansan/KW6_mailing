@@ -3,6 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView, DetailView, DeleteView
 from pytils.translit import slugify
 
+from blog.forms import BlogCreationForm
 from blog.models import Blog
 from blog.services import send_mail_to_admin
 from config.config import THRESHOLD_VIEW_FOR_EMAIL
@@ -32,7 +33,8 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ['title', 'text', 'image']
+    #fields = ['title', 'text', 'image']
+    form_class = BlogCreationForm
     success_url = reverse_lazy('blog:blogs_view')
 
     def form_valid(self, form):
