@@ -1,6 +1,6 @@
 import random
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -15,7 +15,7 @@ class HomePageView(ListView):
     template_name = 'main/index.html'
 
 
-#HomePage View in FBV notation
+# HomePage View in FBV notation
 def home_page_view(request):
     blogs = Blog.objects.all()
     blogs_count = Blog.objects.count()
@@ -23,18 +23,17 @@ def home_page_view(request):
         selected_numbers = random.sample(list(range(blogs_count)), k=3)
         blogs = [blogs[selected_numbers[0]], blogs[selected_numbers[1]], blogs[selected_numbers[2]]]
     mailing_count = MailingList.objects.count()
-    mailing_active_count = MailingList.objects.filter(status='active').count()
+    mailing_active_count = MailingList.objects.filter(status='is active').count()
     context = {'object_list': blogs,
-               'title': "Mailing service>",
+               'title': "Mailing service",
                'mailing_count': mailing_count,
                'mailing_active_count': mailing_active_count}
     return render(request, 'main/index.html', context)
 
 
-
 class MailingListView(ListView):
     model = MailingList
-
+    ordering = 'pk'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -46,7 +45,6 @@ class MailingListView(ListView):
 class MailingListDetailView(DetailView):
     model = MailingList
     success_url = reverse_lazy('main:mailing_list')
-
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -61,7 +59,6 @@ class MailingListCreateView(CreateView):
     success_url = reverse_lazy('main:mailing_list')
 
 
-
 class MailingListUpdateView(UpdateView):
     model = MailingList
     template_name = 'main/mailinglist_form.html'
@@ -74,6 +71,24 @@ class MailingListDeleteView(DeleteView):
     success_url = reverse_lazy('main:mailing_list')
     # success_url = 'mail/mailinglist_list.html'
 
+
+def mailing_activate(request, pk):
+    """set status 'is active' for current object"""
+    info = get_object_or_404(MailingList, pk=pk)
+    info.status = 'is active'
+    info.save()
+    print(info)
+    # return render(request, 'main/mailinglist_list.html')
+    # return reverse_lazy('main:mailing_list')
+    return redirect('main:mailing_list')
+
+
+def mailing_deactivate(request, pk):
+    """set status 'was ended' for current object"""
+    obj = get_object_or_404(MailingList, pk=pk)
+    obj.status = 'was ended'
+    obj.save()
+    return redirect('main:mailing_list')
 
 
 class MessageCreateView(CreateView):

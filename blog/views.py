@@ -56,12 +56,14 @@ class BlogUpdateView(UpdateView):
     def form_valid(self, form):
         if form.is_valid():
             new_blog = form.save()
-            new_blog.slug = slugify(new_blog.title)
+            if Blog.objects.filter(slug=new_blog.slug).exists():
+                new_blog.slug = new_blog.slug + str(new_blog.pk)
             new_blog.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
+        #return reverse('blog:blog_detail', args=[self.kwargs.get('slug')])
+        return reverse('blog:blogs_view')
 
 
 class BlogDeleteView(DeleteView):
@@ -70,7 +72,7 @@ class BlogDeleteView(DeleteView):
 
     def post(self, request, *args, **kwargs):
         where_a_u_from = request.META.get('HTTP_REFERER')
-        print(where_a_u_from)  # собака возвращает не предыдущую форму - а текущую. =((((
+        # print(where_a_u_from)
         if "cancel" in request.POST:
             return redirect(request.META.get('HTTP_REFERER'))
         else:

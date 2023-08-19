@@ -18,3 +18,4 @@ class BlogCreationForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Blog
         fields = '__all__'
+        exclude = ('slug', 'counter_view')

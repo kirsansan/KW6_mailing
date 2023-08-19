@@ -15,10 +15,10 @@
                                 <h5> {{ object.message | title }} with id {{ object.pk }}</h5>
                                 <div class="text-right">
                                     {% if object.status == 'was created' %}
-                                    <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-primary">Activate</a>
+                                    <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-primary">Activate</a>
                                     {% else %}
-                                        {% if object.status == 'active' %}
-                                            <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-primary">Close</a>
+                                        {% if object.status == 'is active' %}
+                                            <a href="{% url 'main:mailing_deactivate' object.pk %}" class="btn btn-primary">Close</a>
                                         {% else %}
                                             <p> Completed and closed </p>
                                         {% endif %}
