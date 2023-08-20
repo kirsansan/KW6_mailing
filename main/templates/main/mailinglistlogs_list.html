@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{%  block content %}
+<div class="col-lg-10">
+    <div class="content">
+        <h1 class="card-title text-center mt-5">Mailing log</h1>
+{#        <a href="{% url 'main:mailing_create' %}" class="btn btn-primary">Add new mailing</a>#}
+        <div class="container mt-5 overflow-hidden">
+            <div class="row">
+                {% for object in object_list %}
+{#                    <div class="pb-3">#}
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <h5> {{ object.send_time | title }} with message {{ object.mailinglist_set }}</h5>
+{#                                <div class="text-right">#}
+{#                                    {% if object.status == 'was created' %}#}
+{#                                    <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-primary">Activate</a>#}
+{#                                    {% else %}#}
+{#                                        {% if object.status == 'is active' %}#}
+{#                                            <a href="{% url 'main:mailing_deactivate' object.pk %}" class="btn btn-primary">Close</a>#}
+{#                                        {% else %}#}
+{#                                            <p> Completed and closed </p>#}
+{#                                        {% endif %}#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+                            </div>
+                            <div class="card-body text-left">
+                                <b>start time:</b>{{ object.status }}
+                                <b>finish time:</b>{{ object.response }}
+{#                                <b>periodicity:</b>{{ object.periodicity }}#}
+{#                                <b>Status:</b>{{ object.status }}#}
+{#                                <div class="text-right">#}
+{#                                    <a href="{% url 'main:mailing_delete' object.pk %}" class="btn btn-danger">Delete</a>#}
+{#                                    <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-secondary">Edit</a>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+{#                    </div>#}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

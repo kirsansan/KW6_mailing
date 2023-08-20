@@ -16,10 +16,11 @@ class StyleFormMixin:
 class MailingListCreationForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MailingList
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('creator',)
 
 
 class MessageCreationForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MailingMessage
-        fields = '__all__'
+        exclude = ('creator',)

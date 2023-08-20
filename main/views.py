@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from blog.models import Blog
 # from config.config import MAX_PRODUCTS_PER_PAGE
 from main.forms import MailingListCreationForm, MessageCreationForm
-from main.models import MailingList, MailingMessage, Client
+from main.models import MailingList, MailingMessage, Client, MailingListLogs
 
 
 class HomePageView(ListView):
@@ -112,3 +112,14 @@ class ClientCreateView(CreateView):
     model = Client
     success_url = reverse_lazy('main:mailing_list')
     fields = ('email', 'first_name', 'last_name', 'is_active')
+
+
+class LogListView(ListView):
+    model = MailingListLogs
+    # success_url = reverse_lazy('main:mailing_list')
+    fields = ('send_time', 'status', 'response')
+
+    # mailing_list_id = models.ForeignKey(MailingList, on_delete=models.CASCADE, verbose_name='mailing list id')
+    # send_time = models.DateTimeField(auto_now_add=True, verbose_name='send time')
+    # status = models.CharField(choices=STATUS, verbose_name='status')
+    # response = models.TextField(**NULLABLE, verbose_name='response from server')

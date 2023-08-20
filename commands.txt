@@ -30,6 +30,7 @@ python -Xutf8 manage.py dumpdata <app.model> --indent 2 -o table.json
 # — команда загрузки сохраненных данных в текущую БД:
 python manage.py loaddata <app_name>_data.json
 
+# database cleaner for pgadmin
 SELECT pg_terminate_backend(pg_stat_activity.pid)
 FROM pg_stat_activity
 WHERE pg_stat_activity.datname = 'north' -- your BD name
