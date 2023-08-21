@@ -11,6 +11,11 @@ register = template.Library()
 def current_time(format_string):
     return datetime.datetime.now().strftime(format_string)
 
+@register.simple_tag
+def cut_time(time, format_string):
+    return time.strftime(format_string)
+
+
 
 @register.simple_tag
 def mediapath(img_path: str):
@@ -23,3 +28,7 @@ def mediapath(img_path: str):
 def mediapath(img_path: str):
     """convert relative path to absolute path"""
     return f'/media/{img_path}'
+
+@register.filter
+def cut_time(time):
+    return time.strftime("%Y-%m-%d %H:%M")

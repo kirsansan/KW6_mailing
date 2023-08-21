@@ -72,7 +72,7 @@ class MailingList(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='creator')
 
     def __str__(self):
-        return f"{self.message.subject} have to start from {self.start} every {self.periodicity}"
+        return f"{self.message.subject} have to start from {self.start.strftime('%Y-%m-%d %H:%M')} with period {self.periodicity}"
 
     class Meta:
         verbose_name = 'mailing list'
@@ -96,7 +96,7 @@ class MailingListLogs(models.Model):
     response = models.TextField(**NULLABLE, verbose_name='response from server')
 
     def __str__(self):
-        return f'{self.mailing_list_id.message.subject} was processed: {self.send_time}'
+        return f'{self.mailing_list_id.message.subject} was processed: {self.send_time.strftime("%Y-%m-%d %H:%M")}'
 
     class Meta:
         verbose_name = 'mailing effort log'
