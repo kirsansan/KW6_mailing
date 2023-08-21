@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from config.config import DB_PASSWORD, MY_EMAIL_PASSWORD, DJANGO_SECRET_KEY, MY_EMAIL_PORT, MY_EMAIL_HOST, MY_EMAIL
+from config.config import DB_PASSWORD, MY_EMAIL_PASSWORD, DJANGO_SECRET_KEY, MY_EMAIL_PORT, MY_EMAIL_HOST, MY_EMAIL, \
+    TXT_LOG, DB_BASE_NAME, DB_USER, DB_PORT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,11 +87,12 @@ DATABASES = {
 
         # for working with postreSQL
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mailing_db',  # DB name
-        'USER': 'postgres',  # default user
+        'NAME': DB_BASE_NAME,  # DB name
+        #'USER': 'postgres',  # default user
+        'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,  # password for default user (get from .env )
         'HOST': '127.0.0.1',  # ip
-        'PORT': 5432,  # port for DB
+        'PORT': DB_PORT,  # port for DB
     }
 }
 
@@ -163,5 +165,5 @@ if CACHE_ENABLED:
 
 # will be start it every 5 minutes
 CRONJOBS = [
-    ('*/5 * * * *', 'main.services.checking_and_send_emails', '>> /home/mailing_service.log')
+    ('*/5 * * * *', 'main.services.checking_and_send_emails', f'>> {TXT_LOG}')
 ]

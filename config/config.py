@@ -6,6 +6,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+DB_USER = os.getenv('POSTGRES_USER')
+DB_PORT = int(os.getenv('POSTGRES_PORT'))
+DB_BASE_NAME = os.getenv('POSTGRES_BASE')
+
+
 MY_EMAIL = os.getenv('MY_EMAIL')
 MY_EMAIL_PASSWORD = os.getenv('MY_EMAIL_PASSWORD')
 MY_EMAIL_HOST = os.getenv('MY_EMAIL_HOST')
@@ -18,6 +23,8 @@ else:
 
 
 DJANGO_SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+TXT_LOG = '~/mailing_service.log'
 
 MAX_PRODUCTS_PER_PAGE = 3
 THRESHOLD_VIEW_FOR_EMAIL = 10
