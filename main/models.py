@@ -88,6 +88,7 @@ class MailingListLogs(models.Model):
     )
 
     mailing_list_id = models.ForeignKey(MailingList, on_delete=models.CASCADE, verbose_name='mailing list id')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, **NULLABLE, verbose_name='client')
     send_time = models.DateTimeField(auto_now_add=True, verbose_name='send time')
     status = models.CharField(choices=STATUS, verbose_name='status')
     response = models.TextField(**NULLABLE, verbose_name='response from server')
@@ -96,5 +97,5 @@ class MailingListLogs(models.Model):
         return f'{self.mailing_list_id.message.subject} was processed: {self.send_time}'
 
     class Meta:
-        verbose_name = 'mailing effort'
-        verbose_name_plural = 'mailing efforts'
+        verbose_name = 'mailing effort log'
+        verbose_name_plural = 'mailing efforts log'
