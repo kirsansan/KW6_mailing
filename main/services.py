@@ -4,7 +4,7 @@ from random import randint
 from django import template
 from django.core.mail import send_mail
 from django.conf import settings
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.utils import timezone
 
@@ -15,20 +15,21 @@ register = template.Library()
 
 
 def checking_and_send_emails():
-    # all_email = []
-    # for client in Client.objects.all():
-    #     all_email.append(str(client.email))
-
+    """ for all mailing check timings and active status
+        also check for needing to send mailing
+            if it's need - try to send and write result is log database"""
     for mailing in MailingList.objects.filter(status=MailingList.ACTIVE):
-        print(mailing, mailing.finish, datetime.now(timezone.get_current_timezone()))
-        # print("mailing", mailing, mailing.__dir__(), mailing.client_id.all())
+        print("see on mailing:", mailing)
+        # your time has not yet come
         if mailing.start > datetime.now(timezone.get_current_timezone()):
             continue
+        # your time is over (finished)
         if mailing.finish < datetime.now(timezone.get_current_timezone()):
             print("your time is over")
             mailing.status = mailing.COMPLETED
             mailing.save()
             continue
+        # on this step start and finish timing has already ok - we will try to check logs
         for client in mailing.client_id.all():
             print(client)
             #     print(client.email)
@@ -39,8 +40,9 @@ def checking_and_send_emails():
                 send_one_email(mailing, client)
             else:  # it is mailing.MONTHLY WEEKLY DAILY
                 if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
-                    if mailing.mailinglistlogs_set.filter(client=client.pk).last().status == 'was sent':
-                        if not checking_time(mailing):
+                    last_update = mailing.mailinglistlogs_set.filter(client=client.pk).last()
+                    if last_update.status == 'was sent':
+                        if not checking_time(mailing, last_update):
                             continue
                 send_one_email(mailing, client)
 
@@ -74,6 +76,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
     new_log_string = MailingListLogs()
     new_log_string.client = client
     new_log_string.mailing_list_id = mailing
+    new_log_string.send_time =
     if not EMAIL_SENDING_SIMULATION_MODE:
         try:
             send_status = send_mail(
@@ -85,6 +88,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
             )
             if send_status == 1:
                 new_log_string.status = new_log_string.SENT
+                new_log_string.response = "Ok"
             else:
                 new_log_string.status = new_log_string.ERROR
                 new_log_string.response = "Unknown error"
@@ -96,7 +100,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
             pass
     else:
         chaos = randint(0, 100)
-        if chaos > 80:
+        if chaos > 80:     # simulate errors
             new_log_string.status = new_log_string.ERROR
             new_log_string.response = 'email sending simulation error'
         else:
@@ -104,6 +108,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
             new_log_string.response = 'simulation sending is Ok'
 
     # new_log_string = MailingListLogs()
+    new_log_string.send_time = datetime.now(timezone.get_current_timezone())
     new_log_string.save()
     if new_log_string.status == new_log_string.SENT:
         return True
@@ -119,6 +124,15 @@ def mail_testing():
     print("test mailing result =", send_one_email(mailing, mailing.client_id.latest()))
 
 
-def checking_time(mailing: MailingList) -> bool:
-    """"""
-    return True
+def checking_time(mailing: MailingList, last: MailingListLogs) -> bool:
+    """calculate timing """
+    hours_before_the_next = 24
+    if mailing.status is mailing.WEEKLY:
+        hours_before_the_next *= 7
+    if mailing.status is mailing.MONTHLY:
+        hours_before_the_next *= 7*30
+    print("checking time with", datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next) )
+    if last.send_time <  datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next):
+        return True
+    else:
+        return False
