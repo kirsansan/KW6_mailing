@@ -4,6 +4,9 @@ from random import randint
 from django import template
 from django.core.mail import send_mail
 from django.conf import settings
+from datetime import datetime
+
+from django.utils import timezone
 
 from config.config import EMAIL_SENDING_SIMULATION_MODE
 from main.models import Client, MailingMessage, MailingList, MailingListLogs
@@ -17,24 +20,29 @@ def checking_and_send_emails():
     #     all_email.append(str(client.email))
 
     for mailing in MailingList.objects.filter(status=MailingList.ACTIVE):
-        print(mailing)
+        print(mailing, mailing.finish, datetime.now(timezone.get_current_timezone()))
         # print("mailing", mailing, mailing.__dir__(), mailing.client_id.all())
-        # if mailing.status == MailingList.ACTIVE:
+        if mailing.start > datetime.now(timezone.get_current_timezone()):
+            continue
+        if mailing.finish < datetime.now(timezone.get_current_timezone()):
+            print("your time is over")
+            mailing.status = mailing.COMPLETED
+            mailing.save()
+            continue
         for client in mailing.client_id.all():
             print(client)
             #     print(client.email)
             if mailing.periodicity == mailing.ONCE:
                 if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
-                    print("status:", mailing.mailinglistlogs_set.filter(client=client.pk).last().status)
-            elif mailing.periodicity == mailing.DAILY:
+                    if mailing.mailinglistlogs_set.filter(client=client.pk).last().status == 'was sent':
+                        continue
+                send_one_email(mailing, client)
+            else:  # it is mailing.MONTHLY WEEKLY DAILY
                 if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
-                    print("status:", mailing.mailinglistlogs_set.filter(client=client.pk).last().status)
-            elif mailing.periodicity == mailing.WEEKLY:
-                if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
-                    print("status:", mailing.mailinglistlogs_set.filter(client=client.pk).last().status)
-            else:  # it is mailing.MONTHLY
-                if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
-                    print("status:", mailing.mailinglistlogs_set.filter(client=client.pk).last().status)
+                    if mailing.mailinglistlogs_set.filter(client=client.pk).last().status == 'was sent':
+                        if not checking_time(mailing):
+                            continue
+                send_one_email(mailing, client)
 
             # filtered_message = mailing.message
             # message = MailingMessage.objects.filter(subject=filtered_message)
@@ -111,7 +119,6 @@ def mail_testing():
     print("test mailing result =", send_one_email(mailing, mailing.client_id.latest()))
 
 
-def check_time(time, periodicity):
+def checking_time(mailing: MailingList) -> bool:
     """"""
-
     return True

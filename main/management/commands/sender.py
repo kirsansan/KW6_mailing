@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from main.services import send_email, checking_and_send_emails
+from main.services import send_one_email, checking_and_send_emails
 
 
 class Command(BaseCommand):
