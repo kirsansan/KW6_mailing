@@ -1,0 +1,67 @@
+[
+{
+  "model": "blog.blog",
+  "pk": 2,
+  "fields": {
+    "title": "первый блок про рассылки",
+    "slug": "sfgfgdf2",
+    "text": "первый блок про рассылки",
+    "image": "blogs_images/fish02.jpg",
+    "date_created": "2023-08-19T16:20:26.601Z",
+    "is_published": true,
+    "counter_view": 3
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 3,
+  "fields": {
+    "title": "второй блог про курсач",
+    "slug": "bbb33",
+    "text": "первый блок про рассылки в курсовой работе\r\nчо-то тяжко",
+    "image": "blogs_images/3cjyftbrlbk0oow08000cwoccgoo44.jpeg",
+    "date_created": "2023-08-19T16:20:39.542Z",
+    "is_published": true,
+    "counter_view": 2
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 4,
+  "fields": {
+    "title": "третий",
+    "slug": "cccccc44",
+    "text": "проверка третьего",
+    "image": "blogs_images/photo_2023-04-06_20-11-18.jpg",
+    "date_created": "2023-08-19T16:21:01.734Z",
+    "is_published": true,
+    "counter_view": 1
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 6,
+  "fields": {
+    "title": "четвертый блог",
+    "slug": "chetvertyij-blog",
+    "text": "а вот и четвертый блог про Unix",
+    "image": "blogs_images/Tux.svg.png",
+    "date_created": "2023-08-19T22:50:01.569Z",
+    "is_published": true,
+    "counter_view": 1
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 7,
+  "fields": {
+    "title": "пятый блог про непонятно что",
+    "slug": "pyatyij-blog-pro-neponyatno-chto",
+    "text": "пятый блог про непонятно что",
+    "image": "blogs_images/1655336778_2-gamerwall-pro-p-zvezdnoe-nebo-i-more-priroda-krasivo-foto-2.jpg",
+    "date_created": "2023-08-19T22:52:50.797Z",
+    "is_published": true,
+    "counter_view": 0
+  }
+}
+]

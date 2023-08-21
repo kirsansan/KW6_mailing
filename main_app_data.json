@@ -1,0 +1,155 @@
+[
+{
+  "model": "main.client",
+  "pk": 1,
+  "fields": {
+    "first_name": "cliA",
+    "last_name": null,
+    "email": "cliA@mail.dot",
+    "creator": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.client",
+  "pk": 3,
+  "fields": {
+    "first_name": "cliB",
+    "last_name": "Second",
+    "email": "cliB@mail.dot",
+    "creator": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 1,
+  "fields": {
+    "subject": "message1",
+    "body": "message body\r\nbody \r\nbody",
+    "created_time": "2023-08-19T18:53:22.825Z",
+    "creator": null
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 4,
+  "fields": {
+    "subject": "message2",
+    "body": "свов\r\nsd\r\nыва\r\nsd",
+    "created_time": "2023-08-19T19:03:49.343Z",
+    "creator": 1
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 5,
+  "fields": {
+    "subject": "Покупайте наших слонов",
+    "body": "Покупайте наших слонов",
+    "created_time": "2023-08-19T20:53:19.545Z",
+    "creator": 1
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 1,
+  "fields": {
+    "message": 1,
+    "time": "22:03:49",
+    "start": "2023-08-19T22:03:49Z",
+    "finish": "2023-08-21T22:03:49Z",
+    "periodicity": "weekly",
+    "status": "was created",
+    "creator": null,
+    "client_id": [
+      1
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 2,
+  "fields": {
+    "message": 4,
+    "time": "22:03:49",
+    "start": "2023-08-19T22:03:49Z",
+    "finish": "2023-08-21T22:03:49Z",
+    "periodicity": "onetime",
+    "status": "was ended",
+    "creator": null,
+    "client_id": [
+      1
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 3,
+  "fields": {
+    "message": 4,
+    "time": "22:03:49",
+    "start": "2023-08-19T22:03:49Z",
+    "finish": "2023-08-19T22:03:49Z",
+    "periodicity": "daily",
+    "status": "is active",
+    "creator": null,
+    "client_id": [
+      3,
+      1
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 5,
+  "fields": {
+    "message": 5,
+    "time": "03:55:43",
+    "start": "2023-08-21T03:55:43Z",
+    "finish": "2023-08-21T03:55:43Z",
+    "periodicity": "onetime",
+    "status": "was created",
+    "creator": null,
+    "client_id": [
+      3
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 6,
+  "fields": {
+    "message": 5,
+    "time": "03:57:41",
+    "start": "2023-08-22T03:57:41Z",
+    "finish": "2023-08-22T03:57:41Z",
+    "periodicity": "onetime",
+    "status": "was created",
+    "creator": null,
+    "client_id": [
+      1
+    ]
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 1,
+  "fields": {
+    "mailing_list_id": 1,
+    "send_time": "2023-08-20T00:04:21.947Z",
+    "status": "was sent",
+    "response": ""
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 2,
+  "fields": {
+    "mailing_list_id": 2,
+    "send_time": "2023-08-20T00:05:13.994Z",
+    "status": "sending error",
+    "response": "error sending 404"
+  }
+}
+]
