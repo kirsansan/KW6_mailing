@@ -20,6 +20,7 @@ class Client(models.Model):
         verbose_name = 'Client'
         verbose_name_plural = 'Clients'
         ordering = ('last_name',)
+        get_latest_by = 'email'
 
 
 class MailingMessage(models.Model):
@@ -76,6 +77,7 @@ class MailingList(models.Model):
     class Meta:
         verbose_name = 'mailing list'
         verbose_name_plural = 'mailing lists'
+        get_latest_by = 'time'
 
 
 class MailingListLogs(models.Model):

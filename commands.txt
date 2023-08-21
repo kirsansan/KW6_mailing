@@ -25,10 +25,14 @@ python manage.py shell
 # — команда для сохранения данных из текущей БД:
 python manage.py dumpdata <app_name> > <app_name>_data.json
 python -Xutf8 manage.py dumpdata <app.model> --indent 2 -o table.json
+# а при переносе всей базы с одного компа на другой
+./manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json
+
 
 # loaddata
 # — команда загрузки сохраненных данных в текущую БД:
 python manage.py loaddata <app_name>_data.json
+
 
 # database cleaner for pgadmin
 SELECT pg_terminate_backend(pg_stat_activity.pid)

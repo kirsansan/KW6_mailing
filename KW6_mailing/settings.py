@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from config.config import DB_PASSWORD, MY_EMAIL_PASSWORD, DJANGO_SECRET_KEY
+from config.config import DB_PASSWORD, MY_EMAIL_PASSWORD, DJANGO_SECRET_KEY, MY_EMAIL_PORT, MY_EMAIL_HOST, MY_EMAIL
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -146,9 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'driod3po@yandex.ru'
+EMAIL_HOST = MY_EMAIL_HOST
+EMAIL_PORT = MY_EMAIL_PORT
+EMAIL_HOST_USER = MY_EMAIL
 EMAIL_HOST_PASSWORD = MY_EMAIL_PASSWORD
 EMAIL_USE_SSL = True
 

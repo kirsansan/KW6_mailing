@@ -12,7 +12,7 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="card text-center">
                             <div class="card-header">
-                                <h5> {{ object.send_time | title }} with message {{ object.mailinglist_set }}</h5>
+                                <h5> {{ object.send_time | title }} with message {{ object.mailing_list_id }}</h5>
 {#                                <div class="text-right">#}
 {#                                    {% if object.status == 'was created' %}#}
 {#                                    <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-primary">Activate</a>#}
@@ -28,6 +28,7 @@
                             <div class="card-body text-left">
                                 <b>start time:</b>{{ object.status }}
                                 <b>finish time:</b>{{ object.response }}
+                                <b>client:</b>{{ object.client }}
 {#                                <b>periodicity:</b>{{ object.periodicity }}#}
 {#                                <b>Status:</b>{{ object.status }}#}
 {#                                <div class="text-right">#}
