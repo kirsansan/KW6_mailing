@@ -18,8 +18,9 @@ def checking_and_send_emails():
     """ for all mailing check timings and active status
         also check for needing to send mailing
             if it's need - try to send and write result is log database"""
+    print("Start checking at", datetime.now(timezone.get_current_timezone()))
     for mailing in MailingList.objects.filter(status=MailingList.ACTIVE):
-        print("see on mailing:", mailing)
+        print(">>>See on mailing:", mailing)
         # your time has not yet come
         if mailing.start > datetime.now(timezone.get_current_timezone()):
             continue
@@ -31,7 +32,7 @@ def checking_and_send_emails():
             continue
         # on this step start and finish timing has already ok - we will try to check logs
         for client in mailing.client_id.all():
-            print(client)
+            print(">", client)
             #     print(client.email)
             if mailing.periodicity == mailing.ONCE:
                 if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
@@ -42,32 +43,11 @@ def checking_and_send_emails():
                 if mailing.mailinglistlogs_set.filter(client=client.pk).exists():
                     last_update = mailing.mailinglistlogs_set.filter(client=client.pk).last()
                     if last_update.status == 'was sent':
+                        print('this  mailing was sent, need checking timing for resending')
                         if not checking_time(mailing, last_update):
                             continue
                 send_one_email(mailing, client)
 
-            # filtered_message = mailing.message
-            # message = MailingMessage.objects.filter(subject=filtered_message)
-            # for m in message:
-            #     send_mail(
-            #         subject=m.subject,
-            #         message=m.body,
-            #         from_email=settings.EMAIL_HOST_USER,
-            #         recipient_list=[*all_email],
-            #     )
-            #     status_list = []
-            #     server_response = {
-            #         'sending': MailingList.objects.get(pk=mailing.id),
-            #         'status': MailingListLogs.SENT,
-            #         'response': [*all_email]}
-            #     status_list.append(MailingListLogs(**server_response))
-            #     MailingListLogs.objects.bulk_create(status_list)
-            #     if mailing.periodicity == MailingList.ONCE:
-            #         mailing.status = MailingList.COMPLETED
-            #         mailing.save()
-            #     else:
-            #         mailing.status = MailingList.ACTIVE
-            #         mailing.save()
 
 
 def send_one_email(mailing: MailingList, client: Client) -> bool:
@@ -76,7 +56,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
     new_log_string = MailingListLogs()
     new_log_string.client = client
     new_log_string.mailing_list_id = mailing
-    new_log_string.send_time =
+
     if not EMAIL_SENDING_SIMULATION_MODE:
         try:
             send_status = send_mail(
@@ -132,7 +112,7 @@ def checking_time(mailing: MailingList, last: MailingListLogs) -> bool:
     if mailing.status is mailing.MONTHLY:
         hours_before_the_next *= 7*30
     print("checking time with", datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next) )
-    if last.send_time <  datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next):
+    if last.send_time < datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next):
         return True
     else:
         return False
