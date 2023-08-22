@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import MailingList, MailingMessage
+from main.models import MailingList, MailingMessage, Client
 
 
 class StyleFormMixin:
@@ -34,3 +34,9 @@ class MessageCreationForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MailingMessage
         exclude = ('creator',)
+
+class ClientCreateForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ('email', 'first_name', 'last_name', 'is_active')
+        # exclude = ('creator',)

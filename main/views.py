@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from blog.models import Blog
 # from config.config import MAX_PRODUCTS_PER_PAGE
-from main.forms import MailingListCreationForm, MessageCreationForm
+from main.forms import MailingListCreationForm, MessageCreationForm, ClientCreateForm
 from main.models import MailingList, MailingMessage, Client, MailingListLogs
 from main.services import checking_and_send_emails
 
@@ -143,10 +143,12 @@ class MessageCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin,CreateView):
     model = Client
     success_url = reverse_lazy('main:mailing_list')
-    fields = ('email', 'first_name', 'last_name', 'is_active')
+    form_class = ClientCreateForm
+
+    permission_required = ('main.view_client', )
 
 
 class LogListView(ListView):

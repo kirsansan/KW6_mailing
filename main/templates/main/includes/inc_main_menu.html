@@ -18,6 +18,8 @@
                     Main page
                 </a>
             </li>
+
+            {% if request.user.is_authenticated %}
             <li>
                 <a href="{% url 'main:mailing_list' %}" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
@@ -34,14 +36,8 @@
                     New client
                 </a>
             </li>
-            <li>
-                <a href="{% url 'main:log_view' %}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16">
-                        <use xlink:href="#grid"></use>
-                    </svg>
-                    View Logs
-                </a>
-            </li>
+            {% endif %}
+            {% if perms.main.view_client %}
             <li>
                 <a href="{% url 'users:users_view' %}" class="nav-link text-white">
                     <svg class="bi pe-none me-2" width="16" height="16">
@@ -50,6 +46,16 @@
                     List of Users
                 </a>
             </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'main:log_view' %}" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#grid"></use>
+                    </svg>
+                    View Logs
+                </a>
+            </li>
+
 {#            <li>#}
 {#                <a href="{% url 'main:add_new_product' %}" class="nav-link text-white">#}
 {#                    <svg class="bi pe-none me-2" width="16" height="16">#}

@@ -138,7 +138,7 @@ def forgot_password(request):
 class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = User
     ordering = 'pk'
-    permission_required = 'user.change_user'
+    permission_required = 'users.change_user'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

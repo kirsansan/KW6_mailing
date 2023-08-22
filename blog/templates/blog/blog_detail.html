@@ -22,7 +22,9 @@
                                     <p class="card-text"><b>was created  :</b>{{ object.date_created }}</p>
                                     <p class="card-text"><b>was published:  </b>{{ object.is_published }} </p>
                                     <p class="card-text"><b>slug is:        </b>{{ object.slug }}</p>
-                                    <a href="{% url 'blog:blog_delete' object.pk %}" class="btn btn-primary">Delete</a>
+                                    {% if perms.blog.delete_blog %}
+                                        <a href="{% url 'blog:blog_delete' object.pk %}" class="btn btn-primary">Delete</a>
+                                    {% endif %}
                                 </div>
 
                         </div>
