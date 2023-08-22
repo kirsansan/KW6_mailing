@@ -19,6 +19,16 @@ class MailingListCreationForm(StyleFormMixin, forms.ModelForm):
         # fields = '__all__'
         exclude = ('creator',)
 
+    def clean_finish(self):
+        finish = self.cleaned_data['finish']
+        start = self.cleaned_data['start']
+        if start > finish:
+            raise forms.ValidationError('Attention! Finish time cannot be less then start')
+        if start == finish:
+            raise forms.ValidationError('Attention! Finish time need to be more then start at least 5 min')
+
+        return finish
+
 
 class MessageCreationForm(StyleFormMixin, forms.ModelForm):
     class Meta:

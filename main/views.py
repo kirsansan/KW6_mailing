@@ -8,6 +8,7 @@ from blog.models import Blog
 # from config.config import MAX_PRODUCTS_PER_PAGE
 from main.forms import MailingListCreationForm, MessageCreationForm
 from main.models import MailingList, MailingMessage, Client, MailingListLogs
+from main.services import checking_and_send_emails
 
 
 class HomePageView(ListView):
@@ -24,8 +25,10 @@ def home_page_view(request):
         blogs = [blogs[selected_numbers[0]], blogs[selected_numbers[1]], blogs[selected_numbers[2]]]
     mailing_count = MailingList.objects.count()
     mailing_active_count = MailingList.objects.filter(status='is active').count()
+    uniq_clients_count = Client.objects.all().count()
     context = {'object_list': blogs,
                'title': "Mailing service",
+               'uniq_clients_count': uniq_clients_count,
                'mailing_count': mailing_count,
                'mailing_active_count': mailing_active_count}
     return render(request, 'main/index.html', context)
@@ -58,12 +61,30 @@ class MailingListCreateView(CreateView):
     form_class = MailingListCreationForm
     success_url = reverse_lazy('main:mailing_list')
 
+    def form_valid(self, form):
+        """ save data
+         after that we will immediately check and send the mail if necessary """
+        self.object = form.save()
+        self.object.creator = self.request.user
+        self.object.save()
+        checking_and_send_emails()
+        return super().form_valid(form)
+
 
 class MailingListUpdateView(UpdateView):
     model = MailingList
     template_name = 'main/mailinglist_form.html'
     success_url = reverse_lazy('main:mailing_list')
     form_class = MailingListCreationForm
+
+    def form_valid(self, form):
+        """ save new data
+        after that we will immediately check and send the mail if necessary """
+        self.object = form.save()
+        self.object.creator = self.request.user
+        self.object.save()
+        checking_and_send_emails()
+        return super().form_valid(form)
 
 
 class MailingListDeleteView(DeleteView):
@@ -73,13 +94,13 @@ class MailingListDeleteView(DeleteView):
 
 
 def mailing_activate(request, pk):
-    """set status 'is active' for current object"""
+    """set status 'is active' for current object
+       after that we will immediately check and send the mail if necessary """
     info = get_object_or_404(MailingList, pk=pk)
     info.status = 'is active'
     info.save()
     print(info)
-    # return render(request, 'main/mailinglist_list.html')
-    # return reverse_lazy('main:mailing_list')
+    checking_and_send_emails()
     return redirect('main:mailing_list')
 
 
