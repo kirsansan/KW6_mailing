@@ -9,6 +9,7 @@ from config.config import EMAIL_SENDING_SIMULATION_MODE
 from main.models import Client, MailingMessage, MailingList, MailingListLogs
 from django.core.cache import cache
 
+
 register = template.Library()
 
 
