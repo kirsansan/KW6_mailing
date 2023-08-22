@@ -1,15 +1,13 @@
 import smtplib
 from random import randint
-
 from django import template
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime, timedelta
-
 from django.utils import timezone
-
 from config.config import EMAIL_SENDING_SIMULATION_MODE
 from main.models import Client, MailingMessage, MailingList, MailingListLogs
+from django.core.cache import cache
 
 register = template.Library()
 
@@ -49,7 +47,6 @@ def checking_and_send_emails():
                 send_one_email(mailing, client)
 
 
-
 def send_one_email(mailing: MailingList, client: Client) -> bool:
     """ send mail and write result to log table (MailingListLogs)
         in EMAIL_SENDING_SIMULATION_MODE=True this func gives error with a 20 percent chance """
@@ -80,7 +77,7 @@ def send_one_email(mailing: MailingList, client: Client) -> bool:
             pass
     else:
         chaos = randint(0, 100)
-        if chaos > 80:     # simulate errors
+        if chaos > 80:  # simulate errors
             new_log_string.status = new_log_string.ERROR
             new_log_string.response = 'email sending simulation error'
         else:
@@ -110,9 +107,23 @@ def checking_time(mailing: MailingList, last: MailingListLogs) -> bool:
     if mailing.status is mailing.WEEKLY:
         hours_before_the_next *= 7
     if mailing.status is mailing.MONTHLY:
-        hours_before_the_next *= 7*30
-    print("checking time with", datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next) )
+        hours_before_the_next *= 7 * 30
+    print("checking time with", datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next))
     if last.send_time < datetime.now(timezone.get_current_timezone()) - timedelta(hours=hours_before_the_next):
         return True
     else:
         return False
+
+
+def get_log_data():
+    """ low-level cache for all data from Log"""
+    if settings.CACHE_ENABLED:
+        key = 'log_list'
+        log_list = cache.get(key)
+        if log_list is None:
+            print('No log cache detected. I gonna cache it')
+            log_list = MailingListLogs.objects.all()
+            cache.set(key, log_list)
+    else:
+        log_list = MailingListLogs.objects.all()
+    return log_list

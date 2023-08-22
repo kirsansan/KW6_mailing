@@ -9,7 +9,7 @@ from blog.models import Blog
 # from config.config import MAX_PRODUCTS_PER_PAGE
 from main.forms import MailingListCreationForm, MessageCreationForm, ClientCreateForm
 from main.models import MailingList, MailingMessage, Client, MailingListLogs
-from main.services import checking_and_send_emails
+from main.services import checking_and_send_emails, get_log_data
 
 
 class HomePageView(ListView):
@@ -156,7 +156,6 @@ class LogListView(ListView):
     # success_url = reverse_lazy('main:mailing_list')
     fields = ('send_time', 'status', 'response')
 
-    # mailing_list_id = models.ForeignKey(MailingList, on_delete=models.CASCADE, verbose_name='mailing list id')
-    # send_time = models.DateTimeField(auto_now_add=True, verbose_name='send time')
-    # status = models.CharField(choices=STATUS, verbose_name='status')
-    # response = models.TextField(**NULLABLE, verbose_name='response from server')
+    def get_queryset(self, *args, **kwargs):
+        """ rewrite for using low-level cache"""
+        return get_log_data()

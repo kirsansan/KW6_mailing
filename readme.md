@@ -1,15 +1,16 @@
-What is this project do.
+<h3>What is this project do.</h3>
 
 
 
-How to install.
+<h3>How to install.</h3>
 - clone project to own disk
 - 
 
 
-How to prepare.
+<h3>How to prepare.</h3>
 
-How to configure.
+<h3>How to configure.</h3>
 
-Ноw it works.
+
+<h3>Ноw it works.</h3>
 

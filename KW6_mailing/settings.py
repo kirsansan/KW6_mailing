@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'main',
     'blog',
     'users',
+    'django_crontab',
 
 ]
 
@@ -151,7 +152,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/users/'
 
-CACHE_ENABLED = False
+CACHE_ENABLED = True
 
 if CACHE_ENABLED:
     CACHES = {
