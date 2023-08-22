@@ -11,7 +11,7 @@ from main.models import Client
 from users.models import User
 
 GROUPS1 = ['operators']
-MODELS1 = ['mailing list', 'message', 'mailing efforts log', 'Client', 'blog']
+MODELS1 = ['mailing list', 'message', 'mailing effort log', 'Client', 'blog']
 PERMISSIONS1 = ['view', 'change', 'delete', 'add']
 
 GROUPS2 = ['contents']
@@ -50,6 +50,16 @@ class Command(BaseCommand):
             is_superuser=False)
         user.set_password('123')
         user.save()
+        user = User.objects.create(
+            email='content@example.com',
+            first_name='content_first',
+            last_name='content_last',
+            is_staff=True,
+            is_superuser=False)
+        user.set_password('1234')
+        user.save()
+        group = Group.objects.get(name='contents')
+        group.user_set.add(user)
 
     @staticmethod
     def create_permission_for_group(groups, models, permissions):

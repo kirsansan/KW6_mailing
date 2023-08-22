@@ -29,6 +29,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
+        """ send token for registration confirm"""
         user = form.save(commit=False)
         user.is_active = False
         user.save()
@@ -76,6 +77,7 @@ class MailWasSentView(TemplateView):
 
 class UserConfirmEmailView(View):
     def get(self, request, uidb64, token):
+        """handler for catch token response"""
         try:
             uid = urlsafe_base64_decode(uidb64)
             user = User.objects.get(pk=uid)
@@ -101,6 +103,8 @@ class MailConfirmationFailedView(TemplateView):
 
 
 def generate_new_password(challenger):
+    """ would use it if you forgot your password
+     new password will create and send to your email"""
     new_password = ''.join([str(choice(string.ascii_letters + string.digits)) for _ in range(6)])
     if User.objects.filter(email=challenger).exists():
         user = User.objects.get(email=challenger)
@@ -124,6 +128,7 @@ def generate_new_password(challenger):
 
 
 def forgot_password(request):
+    """ handler for button 'forgot password' """
     if request.method == 'POST':
         form = ForgotForm(request.POST)
         if form.is_valid():
