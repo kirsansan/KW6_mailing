@@ -11,7 +11,8 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
-from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from KW6_mailing import settings
 from users.forms import UserRegisterForm, UserProfileForm, ForgotForm
@@ -128,3 +129,15 @@ def forgot_password(request):
     context = {'title': 'MicroShop email request', }
     form = ForgotForm()
     return render(request, 'users/forgot_password.html', {'form': form})
+
+
+class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = User
+    ordering = 'pk'
+    permission_required = 'user.change_user'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['title'] = "User list"
+        # interval = self.count_min_max_pk_on_page()
+        return context
