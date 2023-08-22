@@ -2,7 +2,7 @@
 
 the program is a micro-service with a web interface. designed to organize mailings via email with separation of rights.
 writen by kirill.s (aka Mk.K) 2023.
-Python relez! =)
+Python rulez! =)
 
 <h3>How to prepare.</h3>
 Be sure that you are going use it under linux-compatible operation system.
@@ -29,7 +29,7 @@ you may use command
 >psql -U postgres
 
 and then
->CREATE DATABSAE <database_name>
+>CREATE DATABASE <database_name>
 
 
 alternatively you can use pgadmin or other interface app.
