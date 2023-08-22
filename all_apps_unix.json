@@ -1,0 +1,340 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "4ov0m3rr6qzfckjbstswl9y33q13ulds",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8B3Dp3m8gwAxSNTQp7cr479qkC93ec859sZi2tcVt0BInZGcm2el3y6k8qO8A76nfZl7mvi5T5rvCDzr4dUZ6Xg7376Cl0b61V0aBsICkA-QgvVOmhpwJUGgvtAjgkq2oRE3SZ--LVtUZqqBBkbXs_QG4Hzb4:1qYEzY:J1UHJh8Kqs_K_4C6hjqFFy4g0NvvaCtkhLQqtbelZJs",
+    "expire_date": "2023-09-05T00:11:28.226Z"
+  }
+},
+{
+  "model": "main.client",
+  "pk": 1,
+  "fields": {
+    "first_name": "ckiAAA",
+    "last_name": "AAA",
+    "email": "cliA@mail.dot",
+    "creator": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.client",
+  "pk": 2,
+  "fields": {
+    "first_name": "cliB",
+    "last_name": "BBB",
+    "email": "cliB@mail.dot",
+    "creator": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.client",
+  "pk": 3,
+  "fields": {
+    "first_name": "cliC",
+    "last_name": "CCC",
+    "email": "cliC@mail.dot",
+    "creator": null,
+    "is_active": true
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 1,
+  "fields": {
+    "subject": "Проверка на",
+    "body": "на что проверять-то ?",
+    "created_time": "2023-08-21T22:04:02.828Z",
+    "creator": null
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 2,
+  "fields": {
+    "subject": "Проверка на",
+    "body": "проверка на что-то",
+    "created_time": "2023-08-21T22:05:12.924Z",
+    "creator": 1
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 3,
+  "fields": {
+    "subject": "вторая проверка",
+    "body": "вторая",
+    "created_time": "2023-08-21T22:30:21.530Z",
+    "creator": 1
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 4,
+  "fields": {
+    "subject": "новая",
+    "body": "новая рассылка",
+    "created_time": "2023-08-21T23:37:07.269Z",
+    "creator": 2
+  }
+},
+{
+  "model": "main.mailingmessage",
+  "pk": 5,
+  "fields": {
+    "subject": "ваааще новая",
+    "body": "новая преновая",
+    "created_time": "2023-08-21T23:48:01.043Z",
+    "creator": 2
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 1,
+  "fields": {
+    "message": 2,
+    "time": "22:05:13",
+    "start": "2023-08-21T22:05:13Z",
+    "finish": "2023-08-22T22:05:13Z",
+    "periodicity": "daily",
+    "status": "is active",
+    "creator": null,
+    "client_id": [
+      1
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 2,
+  "fields": {
+    "message": 3,
+    "time": "22:30:21",
+    "start": "2023-08-21T22:30:21Z",
+    "finish": "2023-08-24T22:30:21Z",
+    "periodicity": "daily",
+    "status": "is active",
+    "creator": null,
+    "client_id": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 3,
+  "fields": {
+    "message": 4,
+    "time": "23:37:07",
+    "start": "2023-08-21T23:37:07Z",
+    "finish": "2023-08-22T23:37:07Z",
+    "periodicity": "onetime",
+    "status": "is active",
+    "creator": null,
+    "client_id": [
+      3
+    ]
+  }
+},
+{
+  "model": "main.mailinglist",
+  "pk": 4,
+  "fields": {
+    "message": 5,
+    "time": "23:48:02",
+    "start": "2023-08-21T23:48:02Z",
+    "finish": "2023-08-22T23:48:02Z",
+    "periodicity": "onetime",
+    "status": "is active",
+    "creator": 2,
+    "client_id": [
+      3
+    ]
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 1,
+  "fields": {
+    "mailing_list_id": 1,
+    "client": 1,
+    "send_time": "2023-08-21T22:17:13.011Z",
+    "status": "sending error",
+    "response": "email sending simulation error"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 2,
+  "fields": {
+    "mailing_list_id": 1,
+    "client": 1,
+    "send_time": "2023-08-21T22:17:23.192Z",
+    "status": "was sent",
+    "response": "simulation sending is Ok"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 3,
+  "fields": {
+    "mailing_list_id": 2,
+    "client": 1,
+    "send_time": "2023-08-21T22:35:01.804Z",
+    "status": "sending error",
+    "response": "email sending simulation error"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 4,
+  "fields": {
+    "mailing_list_id": 2,
+    "client": 2,
+    "send_time": "2023-08-21T22:35:01.824Z",
+    "status": "was sent",
+    "response": "simulation sending is Ok"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 5,
+  "fields": {
+    "mailing_list_id": 2,
+    "client": 1,
+    "send_time": "2023-08-21T22:40:02.132Z",
+    "status": "was sent",
+    "response": "simulation sending is Ok"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 6,
+  "fields": {
+    "mailing_list_id": 3,
+    "client": 3,
+    "send_time": "2023-08-21T23:40:02.247Z",
+    "status": "was sent",
+    "response": "simulation sending is Ok"
+  }
+},
+{
+  "model": "main.mailinglistlogs",
+  "pk": 7,
+  "fields": {
+    "mailing_list_id": 4,
+    "client": 3,
+    "send_time": "2023-08-21T23:48:35.961Z",
+    "status": "was sent",
+    "response": "simulation sending is Ok"
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 2,
+  "fields": {
+    "title": "первый блог про рассылки",
+    "slug": "sfgfgdf22",
+    "text": "первый блог про рассылки",
+    "image": "blogs_images/fish02.jpg",
+    "date_created": "2023-08-19T16:20:26.601Z",
+    "is_published": true,
+    "counter_view": 4
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 3,
+  "fields": {
+    "title": "второй блог про курсач",
+    "slug": "bbb333",
+    "text": "в курсовой работе чо-то тяжко с интерфейсами",
+    "image": "blogs_images/3cjyftbrlbk0oow08000cwoccgoo44.jpeg",
+    "date_created": "2023-08-19T16:20:39.542Z",
+    "is_published": true,
+    "counter_view": 2
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 4,
+  "fields": {
+    "title": "третий",
+    "slug": "cccccc44",
+    "text": "проверка третьего",
+    "image": "blogs_images/photo_2023-04-06_20-11-18.jpg",
+    "date_created": "2023-08-19T16:21:01.734Z",
+    "is_published": true,
+    "counter_view": 1
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 6,
+  "fields": {
+    "title": "четвертый блог",
+    "slug": "chetvertyij-blog",
+    "text": "а вот и четвертый блог про Unix",
+    "image": "blogs_images/Tux.svg.png",
+    "date_created": "2023-08-19T22:50:01.569Z",
+    "is_published": true,
+    "counter_view": 1
+  }
+},
+{
+  "model": "blog.blog",
+  "pk": 7,
+  "fields": {
+    "title": "пятый блог про непонятно что",
+    "slug": "pyatyij-blog-pro-neponyatno-chto",
+    "text": "пятый блог про непонятно что",
+    "image": "blogs_images/1655336778_2-gamerwall-pro-p-zvezdnoe-nebo-i-more-priroda-krasivo-foto-2.jpg",
+    "date_created": "2023-08-19T22:52:50.797Z",
+    "is_published": true,
+    "counter_view": 0
+  }
+},
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$Ej9bA5cWtvWY4FVxA1dW0o$cmjcSOWX8zQfDR/s+PB0W70Vj0ChZwcoYM33pEf2q6Q=",
+    "last_login": "2023-08-22T00:11:27.652Z",
+    "is_superuser": true,
+    "first_name": "admin",
+    "last_name": "admin_last",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-08-21T22:00:15.484Z",
+    "email": "admin@example.com",
+    "phone": null,
+    "country": null,
+    "avatar": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$Rcq2kJTFwr2UIZnhU6Lpyh$mH2cFpXhiHNxPP8LrVcbLRL0CS5LYdtJNdMiEVJFo+o=",
+    "last_login": "2023-08-21T22:41:47.517Z",
+    "is_superuser": false,
+    "first_name": "aaa",
+    "last_name": "aaa",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-08-21T22:40:57.368Z",
+    "email": "aaa@bbb.com",
+    "phone": null,
+    "country": null,
+    "avatar": "users/photo_2023-04-06_19-50-34_y9D1aHF.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

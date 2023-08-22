@@ -27,6 +27,8 @@ python manage.py dumpdata <app_name> > <app_name>_data.json
 python -Xutf8 manage.py dumpdata <app.model> --indent 2 -o table.json
 # а при переносе всей базы с одного компа на другой
 ./manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json
+python -Xutf8 manage.py dumpdata --exclude auth.permission --exclude contenttypes --indent 2 -o all_apps_unix.json
+
 
 
 # loaddata
