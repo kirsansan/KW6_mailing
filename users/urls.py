@@ -3,7 +3,7 @@ from django.urls import path
 
 from users.apps import UsersConfig
 from users.views import RegisterView, ProfileView, MailWasSentView, UserConfirmEmailView, EmailConfirmedView, \
-    MailConfirmationFailedView, generate_new_password, forgot_password, UsersListView
+    MailConfirmationFailedView, generate_new_password, forgot_password, UsersListView, activate_user, deactivate_user
 
 app_name = UsersConfig.name
 
@@ -20,4 +20,6 @@ urlpatterns = [
     path('forgot_password/', forgot_password, name='forgot_password'),
     #path('generate_vew_password/', generate_new_password, name='generate_new_password'),
     path('users_view/', UsersListView.as_view(), name='users_view'),
+    path('users_activate/<int:pk>', activate_user, name='users_activate'),
+    path('users_deactivate/<int:pk>', deactivate_user, name='users_deactivate'),
 ]

@@ -16,9 +16,9 @@
                                 <div class="text-right">
                                 {% if request.user.is_authenticated %}
                                     {% if object.is_active %}
-                                    <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-danger">DeActivate</a>
+                                    <a href="{% url 'users:users_deactivate' object.pk %}" class="btn btn-danger">DeActivate</a>
                                     {% else %}
-                                        <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-primary">Activate</a>
+                                        <a href="{% url 'users:users_activate' object.pk %}" class="btn btn-primary">Activate</a>
 {#                                        {% if object.status == 'is active' %}#}
 {#                                            <a href="{% url 'main:mailing_deactivate' object.pk %}" class="btn btn-primary">Close</a>#}
 {#                                        {% else %}#}

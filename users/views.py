@@ -20,6 +20,7 @@ from users.models import User
 
 from config.config import EMAIL_SENDING_SIMULATION_MODE
 
+
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
@@ -141,3 +142,21 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         context['title'] = "User list"
         # interval = self.count_min_max_pk_on_page()
         return context
+
+
+def activate_user(request, pk):
+    if User.objects.filter(pk=pk).exists():
+        user = User.objects.get(pk=pk)
+        if request.user.has_perm('users.change_user'):
+            user.is_active = True
+            user.save()
+    return redirect('users:users_view')
+
+
+def deactivate_user(request, pk):
+    if User.objects.filter(pk=pk).exists():
+        user = User.objects.get(pk=pk)
+        if request.user.has_perm('users.change_user'):
+            user.is_active = False
+            user.save()
+    return redirect('users:users_view')
