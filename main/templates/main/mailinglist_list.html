@@ -4,7 +4,9 @@
 <div class="col-lg-10">
     <div class="content">
         <h1 class="card-title text-center mt-5">Mailing list page</h1>
-        <a href="{% url 'main:mailing_create' %}" class="btn btn-primary">Add new mailing</a>
+        {% if not managers %}
+            <a href="{% url 'main:mailing_create' %}" class="btn btn-primary">Add new mailing</a>
+        {% endif %}
         <div class="container mt-5 overflow-hidden">
             <div class="row">
                 {% for object in object_list %}
@@ -12,7 +14,7 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="card text-center">
                             <div class="card-header">
-                                <h5> {{ object.message | title }} with id {{ object.pk }}</h5>
+                                <h5> {{ object.message | title }}   </h5>
                                 <div class="text-right">
                                     {% if object.status == 'was created' %}
                                     <a href="{% url 'main:mailing_activate' object.pk %}" class="btn btn-primary">Activate</a>
@@ -31,8 +33,10 @@
                                 <b>periodicity:</b>{{ object.periodicity }}
                                 <b>Status:</b>{{ object.status }}
                                 <div class="text-right">
-                                    <a href="{% url 'main:mailing_delete' object.pk %}" class="btn btn-danger">Delete</a>
-                                    <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-secondary">Edit</a>
+                                    {% if not managers %}
+                                        <a href="{% url 'main:mailing_delete' object.pk %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-secondary">Edit</a>
+                                    {%  endif %}
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ from random import random, randint, choice
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.contrib.auth.tokens import default_token_generator
 # from django.contrib.sites.models import Site
 from django.core.mail import send_mail
@@ -83,6 +84,8 @@ class UserConfirmEmailView(View):
         if user is not None and default_token_generator.check_token(user, token):
             user.is_active = True
             user.save()
+            group = Group.objects.get(name='operators')
+            group.user_set.add(user)
             login(request, user)
             return redirect('users:email_confirmed')
         else:
@@ -145,6 +148,7 @@ class UsersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 
 def activate_user(request, pk):
+    """Let's activate user"""
     if User.objects.filter(pk=pk).exists():
         user = User.objects.get(pk=pk)
         if request.user.has_perm('users.change_user'):
@@ -154,9 +158,13 @@ def activate_user(request, pk):
 
 
 def deactivate_user(request, pk):
+    """ if I can deactivate I will do it,
+    but I cannot change peer or superuser"""
     if User.objects.filter(pk=pk).exists():
         user = User.objects.get(pk=pk)
-        if request.user.has_perm('users.change_user'):
+        if request.user.has_perm('users.change_user') \
+                and not user.has_perm('users.change_user') \
+                and not user.is_superuser:
             user.is_active = False
             user.save()
     return redirect('users:users_view')

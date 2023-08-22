@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -34,21 +35,32 @@ def home_page_view(request):
     return render(request, 'main/index.html', context)
 
 
-class MailingListView(ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     model = MailingList
     ordering = 'pk'
 
+    def get_queryset(self, *args, **kwargs):
+        # print(self.request.user.groups.filter(name='Managers'))
+        if self.request.user.groups.filter(name='managers').exists() or self.request.user.is_superuser:
+            context = super().get_queryset()
+        else:
+            context = MailingList.objects.filter(creator=self.request.user)
+        return context
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['title'] = "Mailing service"
+        context['managers'] = self.request.user.groups.filter(name='managers').exists()
         # interval = self.count_min_max_pk_on_page()
         return context
 
 
-class MailingListDetailView(DetailView):
+class MailingListDetailView(LoginRequiredMixin, DetailView):
     model = MailingList
     success_url = reverse_lazy('main:mailing_list')
 
+    # permission_required = ('main.view_mailinglist', )
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['title'] = "Mailing service"
@@ -56,10 +68,11 @@ class MailingListDetailView(DetailView):
         return context
 
 
-class MailingListCreateView(CreateView):
+class MailingListCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = MailingList
     form_class = MailingListCreationForm
     success_url = reverse_lazy('main:mailing_list')
+    permission_required = ('main.add_mailinglist',)
 
     def form_valid(self, form):
         """ save data
@@ -71,11 +84,12 @@ class MailingListCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MailingListUpdateView(UpdateView):
+class MailingListUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = MailingList
     template_name = 'main/mailinglist_form.html'
     success_url = reverse_lazy('main:mailing_list')
     form_class = MailingListCreationForm
+    permission_required = ('main.change_mailinglist',)
 
     def form_valid(self, form):
         """ save new data
@@ -87,10 +101,10 @@ class MailingListUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class MailingListDeleteView(DeleteView):
+class MailingListDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = MailingList
     success_url = reverse_lazy('main:mailing_list')
-    # success_url = 'mail/mailinglist_list.html'
+    permission_required = ('main.delete_mailinglist',)
 
 
 def mailing_activate(request, pk):

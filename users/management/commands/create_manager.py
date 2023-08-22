@@ -1,4 +1,7 @@
-
+"""
+Create user in group of Managers
+with a few specific custom access
+"""
 
 from django.core.management import BaseCommand
 
@@ -19,10 +22,10 @@ class Command(BaseCommand):
             is_superuser=False)
         user.set_password('12345')
         user.save()
-        group = Group.objects.create(name='Managers')
+        group = Group.objects.create(name='managers')
         content_type1 = ContentType.objects.get_for_model(Client)
         permission1, __ = Permission.objects.get_or_create(codename='main.add_client',
-                                                          name='Can add clients',
+                                                          name='Can add client',
                                                           content_type=content_type1)
         content_type2 = ContentType.objects.get_for_model(User)
         permission2 = Permission.objects.get(codename='change_user',

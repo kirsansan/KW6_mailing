@@ -78,6 +78,9 @@ class MailingList(models.Model):
         verbose_name = 'mailing list'
         verbose_name_plural = 'mailing lists'
         get_latest_by = 'time'
+        permissions = [
+                ('change_active', 'Can change active flag')
+            ]
 
 
 class MailingListLogs(models.Model):
