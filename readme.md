@@ -1,4 +1,4 @@
-<h3>What is this project do.</h3>
+<h3>What does this project do.</h3>
 
 the program is a micro-service with a web interface. designed to organize mailings via email with separation of rights.
 writen by kirill.s (aka Mk.K) 2023.
