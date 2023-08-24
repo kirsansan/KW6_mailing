@@ -56,7 +56,11 @@ test@exampla.com - as ordinary user (passw:123)
 
 
 
-The service will be trying to analise queue of active mailing every 5 minutes.
+use command like
+>python manage.py crontab add
+also you can revise state of cron tasks with
+>python manage.py crontab show
+Now the service will be trying to analise queue of active mailing every 5 minutes.
 For immediately start analise use command
 >python manage.py sender
  
