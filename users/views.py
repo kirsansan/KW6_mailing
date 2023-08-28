@@ -44,7 +44,7 @@ class RegisterView(CreateView):
         if not EMAIL_SENDING_SIMULATION_MODE:
             send_count = send_mail(
                 subject='Confirm your registration',
-                message=f'Please, follow the link to verify your email address:: http://127.0.0.0:8000{activation_url}',
+                message=f'Please, follow the link to verify your email address:: http://127.0.0.1:8000{activation_url}',
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[user.email],
                 # fail_silently=False,
@@ -52,7 +52,7 @@ class RegisterView(CreateView):
             print("send=", send_count)
         else:
             print("Simulation send email with token")
-            print(f"activation line is: http://127.0.0.0:8000{activation_url}")
+            print(f"activation line is: http://127.0.0.1:8000{activation_url}")
         return redirect('users:mail_was_sent')
 
 

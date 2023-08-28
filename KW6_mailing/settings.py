@@ -91,7 +91,7 @@ DATABASES = {
         #'USER': 'postgres',  # default user
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,  # password for default user (get from .env )
-        'HOST': '127.0.0.1',  # ip
+        'HOST': '172.22.48.1',  # ip
         'PORT': DB_PORT,  # port for DB
     }
 }
